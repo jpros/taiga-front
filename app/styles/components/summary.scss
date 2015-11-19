@@ -65,6 +65,8 @@ $summary-background: $grayer;
             height: 100%;
             transition: all .2s;
             width: 100%;
+            max-height: 2rem;
+            max-width: 2rem;
         }
         .graph,
         .color-line {

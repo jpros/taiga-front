@@ -274,54 +274,6 @@ UsStatusDisplayDirective = ($template, $compile) ->
 
 module.directive("tgUsStatusDisplay", ["$tgTemplate", "$compile", UsStatusDisplayDirective])
 
-
-#############################################################################
-## User story related tasts progress splay Directive
-#############################################################################
-
-UsTasksProgressDisplayDirective = ($template, $compile) ->
-    # Display a progress bar with the stats of completed tasks.
-    #
-    # Example:
-    #     tg-us-tasks-progress-display(ng-model="tasks")
-    #
-    # Requirements:
-    #   - Task object list (ng-model)
-    #   - scope.taskStatusById object
-
-    link = ($scope, $el, $attrs) ->
-        render = (tasks) ->
-            totalTasks = tasks.length
-            totalClosedTasks = _.filter(tasks, (task) => $scope.taskStatusById[task.status].is_closed).length
-
-            progress = if totalTasks > 0 then 100 * totalClosedTasks / totalTasks else 0
-
-            _.assign($scope, {
-                totalTasks: totalTasks
-                totalClosedTasks: totalClosedTasks
-                progress: progress,
-                style: {
-                    width: progress + "%"
-                }
-            })
-
-        $scope.$watch $attrs.ngModel, (tasks) ->
-            render(tasks) if tasks?
-
-        $scope.$on "$destroy", ->
-            $el.off()
-
-    return {
-        templateUrl: "us/us-task-progress.html"
-        link: link
-        restrict: "EA"
-        require: "ngModel"
-        scope: true
-    }
-
-module.directive("tgUsTasksProgressDisplay", ["$tgTemplate", "$compile", UsTasksProgressDisplayDirective])
-
-
 #############################################################################
 ## User story status button directive
 #############################################################################
@@ -362,7 +314,7 @@ UsStatusButtonDirective = ($rootScope, $repo, $confirm, $loading, $qqueue, $temp
             $.fn.popover().closeAll()
 
             currentLoading = $loading()
-                .target($el.find(".level-name"))
+                .target($el)
                 .start()
 
             onSuccess = ->
@@ -377,7 +329,7 @@ UsStatusButtonDirective = ($rootScope, $repo, $confirm, $loading, $qqueue, $temp
 
             $repo.save(us).then(onSuccess, onError)
 
-        $el.on "click", ".status-data", (event) ->
+        $el.on "click", ".js-edit-status", (event) ->
             event.preventDefault()
             event.stopPropagation()
             return if not isEditable()

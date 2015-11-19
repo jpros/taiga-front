@@ -232,12 +232,6 @@ WatchersDirective = ($rootscope, $confirm, $repo, $qqueue, $template, $compile, 
 
                 deleteWatcher(watcherIds)
 
-        $el.on "click", ".js-add-watcher", (event) ->
-            event.preventDefault()
-            return if not isEditable()
-            $scope.$apply ->
-                $rootscope.$broadcast("watcher:add", $model.$modelValue)
-
         $scope.$on "watcher:added", (ctx, watcherId) ->
             watchers = _.clone($model.$modelValue.watchers, false)
             watchers.push(watcherId)
@@ -357,11 +351,11 @@ BlockButtonDirective = ($rootscope, $loading, $template) ->
                 $el.find('.item-block').addClass('editable')
 
             if item.is_blocked
-                $el.find('.item-block').hide()
-                $el.find('.item-unblock').show()
+                $el.find('.item-block').removeClass('is-active')
+                $el.find('.item-unblock').addClass('is-active')
             else
-                $el.find('.item-block').show()
-                $el.find('.item-unblock').hide()
+                $el.find('.item-block').addClass('is-active')
+                $el.find('.item-unblock').removeClass('is-active')
 
         $el.on "click", ".item-block", (event) ->
             event.preventDefault()
