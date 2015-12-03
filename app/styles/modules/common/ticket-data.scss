@@ -103,6 +103,10 @@
     }
 }
 
+.ticket-watch-buttons {
+    margin-bottom: 1rem;
+}
+
 .ticket-watch {
     .ticket-watch-title {
         @extend %bold;
