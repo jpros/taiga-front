@@ -20,59 +20,52 @@
     }
     .attachment-name {
         @include ellipsis(90%);
-        flex: 1;
-        flex-basis: 20%;
+        flex-basis: 25%;
+        flex-grow: 0;
+        flex-shrink: 0;
         padding-right: 1rem;
     }
     .attachment-comments,
     .editable-attachment-comment {
-        flex-basis: 40%;
-        flex-grow: 0;
+        flex: 1;
         margin-right: .5rem;
         span {
             color: $gray;
         }
     }
     .attachment-size {
-        flex-basis: 12%;
+        flex-basis: 75px;
         flex-grow: 0;
         flex-shrink: 0;
     }
     .attachment-settings {
+        align-items: center;
+        display: flex;
         flex-basis: 10%;
         flex-grow: 0;
         flex-shrink: 0;
+        justify-content: space-around;
         .settings,
         .editable-settings {
             @extend %large;
             color: $gray-light;
-            display: block;
-            position: absolute;
             &:hover {
                 color: $primary;
             }
         }
         .settings {
             opacity: 0;
-            top: .5rem;
         }
         .editable-settings {
             opacity: 1;
-            top: 1rem;
-        }
-        .icon-edit,
-        .icon-floppy {
-            right: 3.5rem;
         }
         .icon-delete {
-            right: 2rem;
             &:hover {
                 color: $red;
             }
         }
         .icon-drag-v {
             cursor: move;
-            right: 0;
         }
     }
     .icon-delete {
