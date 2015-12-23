@@ -31,6 +31,14 @@ ProjectMenuDirective = (projectService, lightboxFactory) ->
             return projectService.project
         ), projectChange
 
+        scope.$watch ( () ->
+            return position = $(window).scrollTop()
+        ), (position) ->
+            if position > 100
+                scope.vm.fixed = true
+            else
+                scope.vm.fixed = false
+
     return {
         scope: {},
         controller: "ProjectMenu",
